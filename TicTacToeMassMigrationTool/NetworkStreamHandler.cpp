@@ -5,12 +5,15 @@ ByteVector getData(std::string IP, uint32_t port) {
     try {
         asio::io_context io;
 
-        asio::ip::address address = asio::ip::make_address(IP);
-        tcp::acceptor acceptor(io, tcp::endpoint(address, port));
+        tcp::acceptor acceptor(io, tcp::endpoint(tcp::v4(), port));
         std::cout << "Server listening on port " << port << "...\n";
 
         tcp::socket socket(io);
         acceptor.accept(socket); // wait for client to connect
+		if (socket.remote_endpoint().address() != asio::ip::make_address(IP)) {
+			std::cerr << "Connection from unauthorized IP: " << socket.remote_endpoint().address() << '\n';
+			return {};
+		}
         std::cout << "Client connected from " << socket.remote_endpoint() << '\n';
 
         uint32_t len_net;
