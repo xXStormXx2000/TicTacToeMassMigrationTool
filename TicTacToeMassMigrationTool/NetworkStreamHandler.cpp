@@ -11,7 +11,7 @@ ByteVector getData(std::string IP, uint32_t port) {
 
         tcp::socket socket(io);
         acceptor.accept(socket); // wait for client to connect
-        std::cout << "Client connected from " << socket.remote_endpoint() << "\n";
+        std::cout << "Client connected from " << socket.remote_endpoint() << '\n';
 
         uint32_t len_net;
         asio::read(socket, asio::buffer(&len_net, sizeof(len_net)));
@@ -22,7 +22,7 @@ ByteVector getData(std::string IP, uint32_t port) {
         return data;
     }
     catch (std::exception& e) {
-        std::cerr << "Error: " << e.what() << "\n";
+        std::cerr << e.what() << '\n';
     }
     return {};
 }
@@ -45,6 +45,6 @@ void sendData(std::string IP, uint32_t port, ByteVector data) {
         std::cout << "Data sent.\n";
     }
     catch (std::exception& e) {
-        std::cerr << "Error: " << e.what() << "\n";
+        std::cerr << e.what() << '\n';
     }
 }
