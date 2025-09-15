@@ -24,9 +24,9 @@ BoardStream streamInBoards(std::string IP, size_t port) {
 	ByteVector inData = getData(IP, port);
 
 	if (inData.size() < 24) return {};
-	size_t treeBytes = inData[0] << 8 * 0 | inData[1] << 8 * 1 | inData[2] << 8 * 2 | inData[3] << 8 * 3 | inData[4] << 8 * 4 | inData[5] << 8 * 5 | inData[6] << 8 * 6 | inData[7] << 8 * 7;
-	size_t memBytes = inData[8] << 8 * 0 | inData[9] << 8 * 1 | inData[10] << 8 * 2 | inData[11] << 8 * 3 | inData[12] << 8 * 4 | inData[13] << 8 * 5 | inData[14] << 8 * 6 | inData[15] << 8 * 7;
-	size_t boards = inData[16] << 8 * 0 | inData[17] << 8 * 1 | inData[18] << 8 * 2 | inData[19] << 8 * 3 | inData[20] << 8 * 4 | inData[21] << 8 * 5 | inData[22] << 8 * 6 | inData[23] << 8 * 7;
+	size_t treeBytes = size_t(inData[0]) << 8 * 0 | size_t(inData[1]) << 8 * 1 | size_t(inData[2]) << 8 * 2 | size_t(inData[3]) << 8 * 3 | size_t(inData[4]) << 8 * 4 | size_t(inData[5]) << 8 * 5 | size_t(inData[6]) << 8 * 6 | size_t(inData[7]) << 8 * 7;
+	size_t memBytes = size_t(inData[8]) << 8 * 0 | size_t(inData[9]) << 8 * 1 | size_t(inData[10]) << 8 * 2 | size_t(inData[11]) << 8 * 3 | size_t(inData[12]) << 8 * 4 | size_t(inData[13]) << 8 * 5 | size_t(inData[14]) << 8 * 6 | size_t(inData[15]) << 8 * 7;
+	size_t boards = size_t(inData[16]) << 8 * 0 | size_t(inData[17]) << 8 * 1 | size_t(inData[18]) << 8 * 2 | size_t(inData[19]) << 8 * 3 | size_t(inData[20]) << 8 * 4 | size_t(inData[21]) << 8 * 5 | size_t(inData[22]) << 8 * 6 | size_t(inData[23]) << 8 * 7;
 
 	if (inData.size() != 24 + treeBytes + memBytes) return {};
 	HuffmanTree tree(inData.data() + 24, treeBytes);
